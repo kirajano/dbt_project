@@ -1,0 +1,1 @@
+SELECT * FROM raw.stripe.payment limit 10;
