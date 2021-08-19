@@ -1,8 +1,18 @@
-SELECT
-    orderid as order_id,
-    paymentmethod as payment_method,
-    status,
-    amount,
-    created
+/* USE WITHOUT CTE if need to streamline to customers directly */
 
-FROM raw.stripe.payment
+WITH payments as ( 
+    SELECT
+        orderid as order_id,
+        paymentmethod as payment_method,
+        status,
+        amount / 100 as amount,  --stored in cents, converting to dollars
+        created
+
+    FROM raw.stripe.payment
+)
+
+SELECT
+    order_id,
+    sum(CASE WHEN STATUS = 'success' THEN amount END) as amount
+FROM payments
+GROUP BY order_id
