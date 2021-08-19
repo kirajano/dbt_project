@@ -6,7 +6,7 @@ WITH payments as (
         status,
         amount / 100 as amount  --stored in cents, converting to dollars
     
-    FROM raw.stripe.payment
+    FROM {{ source('stripe', 'payment') }}
 )
 
 SELECT
