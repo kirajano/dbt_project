@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: The raw database tables containing customers and order info
+    database: raw
+    tables:
+      - name: customers
+        description: Raw customers data.
+        columns:
+          - name: id
+            description: Primary key for the customer
+            tests:
+              - unique
+              - not_null
+      - name: orders
+        description: Raw order data.
+        columns: 
+          - name: id
+            description: Primary key for orders
+            tests:
+              - unique
+              - not_null
+  - name: stripe
+    description: The raw database with payment infomration.
+    tables:
+      - name: payment
+        description: Raw payment data.
+        columns:
+          - name: id
+            description: Primary key for the payment transaction
+            tests:
+              - unique
+              - not_null
+        
+        
